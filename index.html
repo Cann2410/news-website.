@@ -1,49 +1,75 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TIN TỨC | Trang chủ</title>
+  <title>Trang tin tức Dân Trí Demo</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <header class="site-header">
-    <div class="container">
-      <a class="logo" href="index.html">TIN TỨC</a>
-      <nav>
-        <ul id="categoryMenu">
-          <li><a href="index.html">Trang chủ</a></li>
-        </ul>
-      </nav>
+
+  <header>
+    <div class="header-container">
+      <a href="index.html" class="logo">DÂN TRÍ REPLICA</a>
+      <a href="crawler.html" style="color: var(--primary-color); font-weight: bold; text-decoration: none;">⚙️ Công cụ Crawler</a>
     </div>
+    <nav>
+      <ul class="navbar" id="navbar">
+        <!-- Chuyên mục sẽ được tải động bằng JS -->
+      </ul>
+    </nav>
   </header>
 
-  <main class="container">
-    <section class="welcome">
-      <h1>Tin tức mới nhất</h1>
-      <p>Cập nhật tin tức và những sự kiện nổi bật mỗi ngày.</p>
-    </section>
+  <main class="container" id="main-content">
+    <!-- View danh sách bài viết -->
+    <div id="news-view">
+      <div class="top-section" id="top-section">
+        <!-- Top 3 bài viết mới nhất -->
+      </div>
 
-    <section>
-      <h2>3 bài viết mới nhất</h2>
-      <div id="featuredPosts" class="featured-posts"></div>
-    </section>
+      <h2 class="section-title">Danh sách bài viết</h2>
+      <div class="post-list" id="remaining-posts">
+        <!-- Các bài viết tiếp theo -->
+      </div>
+    </div>
 
-    <section>
-      <h2>Tất cả bài viết</h2>
-      <div id="postList" class="post-list"></div>
-    </section>
+    <!-- View chi tiết bài viết (Mặc định ẩn) -->
+    <div id="detail-view" style="display: none;">
+      <!-- Nội dung chi tiết render qua JS -->
+    </div>
   </main>
 
-  <footer class="site-footer">
-    <div class="container">
-      <h2>TIN TỨC</h2>
-      <p>Website tin tức phục vụ học tập.</p>
-      <p>© 2026 TIN TỨC. All rights reserved.</p>
+  <footer>
+    <div class="footer-container">
+      <div class="footer-col">
+        <h3>Về Chúng Tôi</h3>
+        <p style="font-size: 14px;">Trang tin tức tổng hợp tự động cập nhật nhanh chóng, chính xác từ các nguồn uy tín.</p>
+      </div>
+      <div class="footer-col">
+        <h3>Liên Kết Nhanh</h3>
+        <ul>
+          <li><a href="index.html">Trang chủ</a></li>
+          <li><a href="#">Tin mới nhất</a></li>
+          <li><a href="crawler.html">Crawl tin tức</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Chuyên Mục</h3>
+        <ul id="footer-categories">
+          <!-- Render từ JS -->
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Liên Hệ</h3>
+        <p style="font-size: 14px;">Email: contact@dantridemo.vn</p>
+        <p style="font-size: 14px;">Địa chỉ: Hà Nội, Việt Nam</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 DanTri Replica Project. All rights reserved.
     </div>
   </footer>
 
-  <script src="js/main.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
