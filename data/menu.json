@@ -11,13 +11,13 @@
       "id": "dt360",
       "title": "Dân trí 360",
       "url": "https://dantri.com.vn/dt360.htm",
-      "type": "external"
+      "type": "category"
     },
     {
       "id": "latest",
       "title": "Mới nhất",
       "url": "https://dantri.com.vn/tin-moi-nhat.htm",
-      "type": "external"
+      "type": "category"
     },
     {
       "id": "world",
@@ -29,13 +29,13 @@
           "id": "military",
           "title": "Quân sự",
           "url": "https://dantri.com.vn/the-gioi/quan-su.htm",
-          "type": "external"
+          "type": "category"
         },
         {
           "id": "analysis",
           "title": "Phân tích - Bình luận",
           "url": "https://dantri.com.vn/the-gioi/phan-tich-binh-luan.htm",
-          "type": "external"
+          "type": "category"
         }
       ]
     }
