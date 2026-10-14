@@ -1,128 +1,93 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cào dữ liệu | TIN TỨC</title>
+  <title>Công cụ Crawler Dân Trí</title>
   <link rel="stylesheet" href="css/style.css">
   <style>
-    .crawler-panel {
-      background: white;
-      padding: 28px;
-      border-radius: 10px;
-      box-shadow: 0 3px 15px #0000000d;
-    }
-
-    .crawler-panel label {
-      display: block;
-      font-weight: bold;
-      margin: 18px 0 8px;
-    }
-
-    .crawler-panel input,
-    .crawler-panel textarea {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font: inherit;
-    }
-
-    .crawler-panel button {
-      margin-top: 16px;
-      padding: 12px 20px;
-      background: #b5121b;
-      color: white;
-      border: 0;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    .crawler-panel button:hover {
-      background: #920e16;
-    }
-
-    #crawlerStatus {
-      margin-top: 16px;
-      white-space: pre-wrap;
-      overflow-wrap: anywhere;
-    }
-
-    #jsonPreview {
-      min-height: 220px;
-      font-family: monospace;
-    }
+    .crawler-box { background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    .input-group { display: flex; gap: 10px; margin-top: 15px; }
+    .input-group input { flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 4px; }
+    .btn { background: var(--primary-color); color: #fff; border: none; padding: 10px 20px; cursor: pointer; border-radius: 4px; font-weight: bold; }
+    .btn:hover { background: #006633; }
+    pre { background: #1e1e1e; color: #00ff66; padding: 15px; border-radius: 6px; overflow-x: auto; margin-top: 15px; max-height: 400px; }
   </style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="container">
-      <a class="logo" href="index.html">TIN TỨC</a>
-      <nav><a href="index.html" style="color:white">Trang chủ</a></nav>
+
+  <header>
+    <div class="header-container">
+      <a href="index.html" class="logo">DÂN TRÍ REPLICA</a>
+      <a href="index.html" style="color: #333; text-decoration: none; font-weight: bold;">🏠 Về Trang Chủ</a>
     </div>
   </header>
 
   <main class="container">
-    <section class="welcome">
-      <h1>Cào dữ liệu bài báo</h1>
-      <p>Nhập URL bài báo để chuẩn bị dữ liệu theo cấu trúc JSON.</p>
-    </section>
+    <div class="crawler-box">
+      <h2>Thu thập dữ liệu bài viết Dân Trí</h2>
+      <p>Nhập URL bài viết từ website dantri.com.vn để tự động trích xuất dữ liệu bài viết:</p>
+      
+      <div class="input-group">
+        <input type="text" id="crawl-url" placeholder="https://dantri.com.vn/bat-dong-san/ha-noi-tinh-co-che-boi-thuong-dat-dac-biet-cho-7-du-an-duong-sat-20260928122246655.htm">
+        <button class="btn" onclick="handleCrawl()">Bắt đầu Crawl</button>
+      </div>
 
-    <section class="crawler-panel">
-      <form id="crawlerForm">
-        <label for="articleUrl">URL bài báo</label>
-        <input
-          id="articleUrl"
-          type="url"
-          placeholder="https://dantri.com.vn/..."
-          required
-        >
+      <div id="status" style="margin-top: 15px; font-weight: bold;"></div>
 
-        <label for="articleTitle">Tiêu đề bài viết</label>
-        <input id="articleTitle" type="text" required>
+      <h3>Dữ liệu JSON thu được:</h3>
+      <pre id="json-result">// Kết quả JSON sẽ hiển thị tại đây...</pre>
 
-        <label for="articleCategory">Chuyên mục</label>
-        <input
-          id="articleCategory"
-          type="text"
-          placeholder="Ví dụ: Thế giới"
-          required
-        >
-
-        <label for="articleAuthor">Tác giả</label>
-        <input id="articleAuthor" type="text">
-
-        <label for="articleDate">Ngày đăng</label>
-        <input id="articleDate" type="date">
-
-        <label for="articleExcerpt">Mô tả ngắn</label>
-        <textarea id="articleExcerpt" rows="3"></textarea>
-
-        <label for="articleContent">Nội dung bài viết</label>
-        <textarea id="articleContent" rows="8"></textarea>
-
-        <button type="submit">Tạo dữ liệu JSON</button>
-        <button type="button" id="saveArticle">Lưu bài vào trình duyệt</button>
-      </form>
-
-      <p id="crawlerStatus" role="status"></p>
-
-      <label for="jsonPreview">Dữ liệu JSON</label>
-      <textarea id="jsonPreview" rows="14" readonly></textarea>
-
-      <button type="button" id="downloadJson">Tải file JSON</button>
-    </section>
+      <button class="btn" id="save-btn" style="display: none; margin-top: 15px;" onclick="saveToLocalStorage()">Lưu bài viết vào LocalStorage</button>
+    </div>
   </main>
 
-  <footer class="site-footer">
-    <div class="container">
-      <h2>TIN TỨC</h2>
-      <p>Công cụ hỗ trợ thu thập dữ liệu bài báo phục vụ học tập.</p>
-    </div>
-  </footer>
-
   <script src="js/crawler.js"></script>
+  <script>
+    let currentCrawledData = null;
+
+    async function handleCrawl() {
+      const url = document.getElementById('crawl-url').value.trim();
+      const status = document.getElementById('status');
+      const resultBox = document.getElementById('json-result');
+      const saveBtn = document.getElementById('save-btn');
+
+      if (!url) {
+        alert('Vui lòng nhập URL!');
+        return;
+      }
+
+      status.innerText = '⏳ Đang cào dữ liệu từ Dân Trí...';
+      status.style.color = '#e67e22';
+
+      try {
+        currentCrawledData = await crawlDantriArticle(url);
+        resultBox.innerText = JSON.stringify(currentCrawledData, null, 2);
+        status.innerText = '✅ Cào dữ liệu thành công!';
+        status.style.color = '#27ae60';
+        saveBtn.style.display = 'inline-block';
+      } catch (err) {
+        status.innerText = '❌ Lỗi khi cào dữ liệu. Vui lòng kiểm tra lại URL hoặc kết nối internet.';
+        status.style.color = '#c0392b';
+        console.error(err);
+      }
+    }
+
+    function saveToLocalStorage() {
+      if (!currentCrawledData) return;
+
+      let articles = JSON.parse(localStorage.getItem('articles')) || [];
+      // Kiểm tra trùng lặp
+      const index = articles.findIndex(a => a.id === currentCrawledData.id);
+      if (index !== -1) {
+        articles[index] = currentCrawledData;
+      } else {
+        articles.unshift(currentCrawledData);
+      }
+
+      localStorage.setItem('articles', JSON.stringify(articles));
+      alert('Đã lưu bài viết thành công vào LocalStorage!');
+    }
+  </script>
 </body>
 </html>
