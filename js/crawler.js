@@ -1,98 +1,79 @@
-
-const form = document.getElementById("crawlerForm");
-const preview = document.getElementById("jsonPreview");
-const statusBox = document.getElementById("crawlerStatus");
-
-let currentArticle = null;
-
-function makeSlug(text) {
-  return text
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/đ/g, "d")
-    .replace(/Đ/g, "D")
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "");
+/**
+ * Trích xuất ID bài viết từ URL Dân trí
+ */
+function extractPostId(url) {
+  const match = url.match(/-(\d+)\.htm/);
+  return match ? `dtri-${match[1]}` : `dtri-${Date.now()}`;
 }
 
-form.addEventListener("submit", (event) => {
-  event.preventDefault();
+/**
+ * Trích xuất Slug từ URL
+ */
+function extractSlug(url) {
+  const parts = url.split('/');
+  const fileName = parts[parts.length - 1];
+  return fileName.replace(/-\d+\.htm$/, '');
+}
 
-  const url = document.getElementById("articleUrl").value.trim();
-
+/**
+ * Hàm Crawler bóc tách dữ liệu từ URL bài viết Dân trí
+ * @param {string} articleUrl 
+ * @returns {Promise<Object>} Object bài viết đã chuẩn hóa
+ */
+async function crawlDantriArticle(articleUrl) {
   try {
-    const parsedUrl = new URL(url);
+    // Sử dụng CORS Proxy để vượt qua rào cản Cross-Origin của trình duyệt
+    const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(articleUrl)}`;
+    const response = await fetch(proxyUrl);
+    
+    if (!response.ok) throw new Error('Không thể tải trang web.');
+    
+    const data = await response.json();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(data.contents, 'text/html');
 
-    if (parsedUrl.protocol !== "https:" &&
-        parsedUrl.protocol !== "http:") {
-      throw new Error("URL không hợp lệ.");
+    // Trích xuất các trường thông tin theo cấu trúc HTML của Dân trí
+    const title = doc.querySelector('.title-page, .detail-title, h1.title')?.innerText.trim() || '';
+    const excerpt = doc.querySelector('.singular-sapo, .detail-sapo, h2.sapo')?.innerText.trim() || '';
+    
+    // Lấy nội dung văn bản chính
+    const contentBody = doc.querySelector('.singular-content, .detail-content');
+    let content = '';
+    let image = '';
+
+    if (contentBody) {
+      // Loại bỏ các thành phần quảng cáo/bài liên quan
+      contentBody.querySelectorAll('.related-news, .ads, script').forEach(el => el.remove());
+      content = Array.from(contentBody.querySelectorAll('p'))
+                     .map(p => p.innerText.trim())
+                     .filter(text => text.length > 0)
+                     .join('\n\n');
+      
+      const imgEl = contentBody.querySelector('img');
+      if (imgEl) image = imgEl.getAttribute('src') || imgEl.getAttribute('data-src') || '';
     }
-  } catch {
-    statusBox.textContent = "Vui lòng nhập URL bài báo hợp lệ.";
-    return;
+
+    const author = doc.querySelector('.author-name, .author-info, .author')?.innerText.trim() || 'Tổng hợp';
+    const publishedAt = doc.querySelector('.author-time, .detail-time, .time')?.innerText.trim() || new Date().toISOString();
+    const category = doc.querySelector('.breadcrumbs li:nth-child(2) a, .cate-name')?.innerText.trim() || 'Tin tức';
+
+    const postData = {
+      id: extractPostId(articleUrl),
+      title: title,
+      slug: extractSlug(articleUrl),
+      excerpt: excerpt,
+      content: content,
+      image: image,
+      author: author,
+      category: category,
+      publishedAt: publishedAt,
+      source: 'dantri.com.vn',
+      url: articleUrl
+    };
+
+    return postData;
+  } catch (error) {
+    console.error('Lỗi khi cào dữ liệu:', error);
+    throw error;
   }
-
-  const title = document.getElementById("articleTitle").value.trim();
-
-  currentArticle = {
-    id: `post-${Date.now()}`,
-    title,
-    slug: makeSlug(title),
-    excerpt: document.getElementById("articleExcerpt").value.trim(),
-    content: document.getElementById("articleContent").value.trim(),
-    author: document.getElementById("articleAuthor").value.trim(),
-    category: document.getElementById("articleCategory").value.trim(),
-    publishedAt: document.getElementById("articleDate").value,
-    source: new URL(url).hostname,
-    url
-  };
-
-  preview.value = JSON.stringify(currentArticle, null, 2);
-  statusBox.textContent =
-    "Đã tạo JSON từ thông tin mày nhập. Dữ liệu chưa được tự động cào từ URL.";
-});
-
-document.getElementById("saveArticle").addEventListener("click", () => {
-  if (!currentArticle) {
-    statusBox.textContent = "Hãy tạo dữ liệu JSON trước.";
-    return;
-  }
-
-  const key = "newsWebsitePosts";
-  const saved = JSON.parse(localStorage.getItem(key) || "[]");
-
-  const exists = saved.some((post) => post.url === currentArticle.url);
-
-  if (exists) {
-    statusBox.textContent = "Bài viết này đã được lưu trong trình duyệt.";
-    return;
-  }
-
-  saved.push(currentArticle);
-  localStorage.setItem(key, JSON.stringify(saved));
-
-  statusBox.textContent =
-    "Đã lưu bài viết trong LocalStorage của trình duyệt hiện tại.";
-});
-
-document.getElementById("downloadJson").addEventListener("click", () => {
-  if (!currentArticle) {
-    statusBox.textContent = "Hãy tạo dữ liệu JSON trước khi tải.";
-    return;
-  }
-
-  const blob = new Blob(
-    [JSON.stringify(currentArticle, null, 2)],
-    { type: "application/json;charset=utf-8" }
-  );
-
-  const downloadUrl = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-
-  link.href = downloadUrl;
-  link.download = `${currentArticle.slug || "article"}.json`;
-  link.click();
-
-  URL.revokeObjectURL(downloadUrl);
-});
+}
