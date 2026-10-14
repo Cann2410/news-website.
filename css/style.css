@@ -38,6 +38,8 @@ a:hover {
 
 /* HEADER */
 .site-header {
+  position: relative;
+  z-index: 10;
   background: var(--primary);
   color: var(--white);
   padding: 18px 0;
@@ -86,7 +88,8 @@ a:hover {
   font-weight: 700;
 }
 
-#categoryMenu > li > a:hover {
+#categoryMenu > li > a:hover,
+#categoryMenu > li > a.active {
   background: var(--primary-dark);
   color: white;
 }
@@ -106,7 +109,8 @@ a:hover {
   padding: 8px 0;
 }
 
-#categoryMenu li:hover > .submenu {
+#categoryMenu li:hover > .submenu,
+#categoryMenu li:focus-within > .submenu {
   display: block;
 }
 
@@ -117,13 +121,15 @@ a:hover {
   white-space: nowrap;
 }
 
-#categoryMenu .submenu a:hover {
+#categoryMenu .submenu a:hover,
+#categoryMenu .submenu a.active {
   background: #fcebed;
   color: var(--primary);
 }
 
 /* MAIN */
 main.container {
+  min-height: 60vh;
   padding-top: 30px;
   padding-bottom: 45px;
 }
@@ -160,14 +166,32 @@ section h2 {
   border-left: 5px solid var(--primary);
 }
 
-/* DANH SACH BAI VIET */
+/* 3 BAI VIET MOI NHAT */
 .featured-posts {
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  grid-template-rows: repeat(2, minmax(130px, auto));
   gap: 20px;
   align-items: stretch;
 }
 
+.featured-posts .post-card:first-child {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  min-height: 280px;
+}
+
+.featured-posts .post-card:nth-child(2) {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.featured-posts .post-card:nth-child(3) {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+/* DANH SACH BAI VIET CON LAI */
 .post-list {
   display: grid;
   grid-template-columns: 1fr;
@@ -214,6 +238,11 @@ section h2 {
   margin-top: 12px !important;
 }
 
+.empty-message {
+  padding: 18px 0;
+  color: var(--muted);
+}
+
 /* TRANG CHI TIET */
 .article-detail {
   background: white;
@@ -233,6 +262,7 @@ section h2 {
   font-size: 18px;
   line-height: 1.9;
   white-space: pre-line;
+  overflow-wrap: anywhere;
 }
 
 /* FOOTER */
@@ -252,7 +282,7 @@ section h2 {
   color: #e0e0e0;
 }
 
-/* TABLET VA DIEN THOAI */
+/* TABLET */
 @media (max-width: 768px) {
   .site-header .container {
     flex-direction: column;
@@ -275,12 +305,22 @@ section h2 {
     padding-left: 10px;
   }
 
-  #categoryMenu li:hover > .submenu {
+  #categoryMenu li:hover > .submenu,
+  #categoryMenu li:focus-within > .submenu {
     display: block;
   }
 
   .featured-posts {
     grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+
+  .featured-posts .post-card:first-child,
+  .featured-posts .post-card:nth-child(2),
+  .featured-posts .post-card:nth-child(3) {
+    grid-column: 1;
+    grid-row: auto;
+    min-height: 0;
   }
 
   .welcome {
@@ -296,6 +336,7 @@ section h2 {
   }
 }
 
+/* DIEN THOAI */
 @media (max-width: 480px) {
   .container {
     width: 94%;
@@ -322,3 +363,4 @@ section h2 {
     font-size: 18px;
   }
 }
+
