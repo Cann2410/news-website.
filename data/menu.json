@@ -1,0 +1,43 @@
+
+{
+  "menu": [
+    {
+      "id": "home",
+      "title": "Trang chủ",
+      "url": "index.html",
+      "type": "home"
+    },
+    {
+      "id": "dt360",
+      "title": "Dân trí 360",
+      "url": "https://dantri.com.vn/dt360.htm",
+      "type": "external"
+    },
+    {
+      "id": "latest",
+      "title": "Mới nhất",
+      "url": "https://dantri.com.vn/tin-moi-nhat.htm",
+      "type": "external"
+    },
+    {
+      "id": "world",
+      "title": "Thế giới",
+      "url": "https://dantri.com.vn/the-gioi.htm",
+      "type": "category",
+      "children": [
+        {
+          "id": "military",
+          "title": "Quân sự",
+          "url": "https://dantri.com.vn/the-gioi/quan-su.htm",
+          "type": "external"
+        },
+        {
+          "id": "analysis",
+          "title": "Phân tích - Bình luận",
+          "url": "https://dantri.com.vn/the-gioi/phan-tich-binh-luan.htm",
+          "type": "external"
+        }
+      ]
+    }
+  ]
+}
