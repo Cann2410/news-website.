@@ -1,0 +1,128 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cào dữ liệu | TIN TỨC</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .crawler-panel {
+      background: white;
+      padding: 28px;
+      border-radius: 10px;
+      box-shadow: 0 3px 15px #0000000d;
+    }
+
+    .crawler-panel label {
+      display: block;
+      font-weight: bold;
+      margin: 18px 0 8px;
+    }
+
+    .crawler-panel input,
+    .crawler-panel textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font: inherit;
+    }
+
+    .crawler-panel button {
+      margin-top: 16px;
+      padding: 12px 20px;
+      background: #b5121b;
+      color: white;
+      border: 0;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .crawler-panel button:hover {
+      background: #920e16;
+    }
+
+    #crawlerStatus {
+      margin-top: 16px;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    #jsonPreview {
+      min-height: 220px;
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="logo" href="index.html">TIN TỨC</a>
+      <nav><a href="index.html" style="color:white">Trang chủ</a></nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="welcome">
+      <h1>Cào dữ liệu bài báo</h1>
+      <p>Nhập URL bài báo để chuẩn bị dữ liệu theo cấu trúc JSON.</p>
+    </section>
+
+    <section class="crawler-panel">
+      <form id="crawlerForm">
+        <label for="articleUrl">URL bài báo</label>
+        <input
+          id="articleUrl"
+          type="url"
+          placeholder="https://dantri.com.vn/..."
+          required
+        >
+
+        <label for="articleTitle">Tiêu đề bài viết</label>
+        <input id="articleTitle" type="text" required>
+
+        <label for="articleCategory">Chuyên mục</label>
+        <input
+          id="articleCategory"
+          type="text"
+          placeholder="Ví dụ: Thế giới"
+          required
+        >
+
+        <label for="articleAuthor">Tác giả</label>
+        <input id="articleAuthor" type="text">
+
+        <label for="articleDate">Ngày đăng</label>
+        <input id="articleDate" type="date">
+
+        <label for="articleExcerpt">Mô tả ngắn</label>
+        <textarea id="articleExcerpt" rows="3"></textarea>
+
+        <label for="articleContent">Nội dung bài viết</label>
+        <textarea id="articleContent" rows="8"></textarea>
+
+        <button type="submit">Tạo dữ liệu JSON</button>
+        <button type="button" id="saveArticle">Lưu bài vào trình duyệt</button>
+      </form>
+
+      <p id="crawlerStatus" role="status"></p>
+
+      <label for="jsonPreview">Dữ liệu JSON</label>
+      <textarea id="jsonPreview" rows="14" readonly></textarea>
+
+      <button type="button" id="downloadJson">Tải file JSON</button>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <h2>TIN TỨC</h2>
+      <p>Công cụ hỗ trợ thu thập dữ liệu bài báo phục vụ học tập.</p>
+    </div>
+  </footer>
+
+  <script src="js/crawler.js"></script>
+</body>
+</html>
