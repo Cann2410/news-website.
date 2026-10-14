@@ -1,11 +1,7 @@
 
 async function loadJSON(path) {
   const response = await fetch(path + "?v=" + Date.now());
-
-  if (!response.ok) {
-    throw new Error("Không tải được " + path);
-  }
-
+  if (!response.ok) throw new Error("Không tải được " + path);
   return response.json();
 }
 
@@ -13,47 +9,49 @@ let allPosts = [];
 
 function getSavedPosts() {
   try {
-    const posts = JSON.parse(
-      localStorage.getItem("newsWebsitePosts") || "[]"
-    );
-
-    return Array.isArray(posts) ? posts : [];
+    const data = JSON.parse(localStorage.getItem("newsWebsitePosts") || "[]");
+    return Array.isArray(data) ? data : [];
   } catch {
     return [];
   }
 }
 
-function mergePosts(jsonPosts, savedPosts) {
-  const map = new Map();
+function preparePosts(jsonPosts, savedPosts) {
+  const result = [];
+  const seenUrls = new Set();
 
   [...jsonPosts, ...savedPosts].forEach((post, index) => {
     if (!post || !post.title) return;
 
-    const normalized = {
+    // Chỉ loại bài trùng URL, không loại chỉ vì trùng ID.
+    const url = (post.url || "").trim();
+
+    if (url && seenUrls.has(url)) return;
+    if (url) seenUrls.add(url);
+
+    result.push({
       ...post,
       id: String(post.id || "post-" + index)
-    };
-
-    const key = normalized.url || normalized.id;
-    map.set(key, normalized);
+    });
   });
 
-  return [...map.values()];
-}
+  // Bảo đảm mỗi bài có ID riêng để mở đúng trang chi tiết.
+  const usedIds = new Set();
 
-function sortPosts(posts) {
-  return [...posts].sort((a, b) => {
-    const dateA = Date.parse(a.publishedAt || "") || 0;
-    const dateB = Date.parse(b.publishedAt || "") || 0;
-    return dateB - dateA;
+  result.forEach((post, index) => {
+    if (usedIds.has(post.id)) {
+      post.id = post.id + "-" + index;
+    }
+    usedIds.add(post.id);
   });
+
+  return result;
 }
 
 function createMenu(items, parent) {
   items.forEach((item) => {
     const li = document.createElement("li");
     const a = document.createElement("a");
-
     a.textContent = item.title || "Chuyên mục";
 
     if (item.type === "home") {
@@ -73,10 +71,10 @@ function createMenu(items, parent) {
     li.appendChild(a);
 
     if (Array.isArray(item.children) && item.children.length) {
-      const childMenu = document.createElement("ul");
-      childMenu.className = "submenu";
-      createMenu(item.children, childMenu);
-      li.appendChild(childMenu);
+      const submenu = document.createElement("ul");
+      submenu.className = "submenu";
+      createMenu(item.children, submenu);
+      li.appendChild(submenu);
     }
 
     parent.appendChild(li);
@@ -89,10 +87,8 @@ function createPostCard(post) {
 
   const heading = document.createElement("h3");
   const link = document.createElement("a");
-
-  link.textContent = post.title || "Chưa có tiêu đề";
+  link.textContent = post.title;
   link.href = "detail.html?id=" + encodeURIComponent(post.id);
-
   heading.appendChild(link);
   card.appendChild(heading);
 
@@ -123,10 +119,9 @@ function createPostCard(post) {
 function renderPosts(category = "") {
   const featured = document.getElementById("featuredPosts");
   const list = document.getElementById("postList");
-
   if (!featured || !list) return;
 
-  let posts = sortPosts(allPosts);
+  let posts = [...allPosts];
 
   if (category) {
     posts = posts.filter((post) =>
@@ -135,30 +130,27 @@ function renderPosts(category = "") {
     );
   }
 
+  posts.sort((a, b) =>
+    (Date.parse(b.publishedAt || "") || 0) -
+    (Date.parse(a.publishedAt || "") || 0)
+  );
+
   featured.replaceChildren();
   list.replaceChildren();
 
-  const featuredTitle =
-    featured.closest("section")?.querySelector("h2");
-  const listTitle =
-    list.closest("section")?.querySelector("h2");
+  const h1 = featured.closest("section")?.querySelector("h2");
+  const h2 = list.closest("section")?.querySelector("h2");
 
-  if (featuredTitle) {
-    featuredTitle.textContent = category
-      ? "Tin tức: " + category
-      : "3 bài viết mới nhất";
-  }
+  if (h1) h1.textContent = category
+    ? "Tin tức: " + category
+    : "3 bài viết mới nhất";
 
-  if (listTitle) {
-    listTitle.textContent = category
-      ? "Các bài viết khác: " + category
-      : "Tất cả bài viết";
-  }
+  if (h2) h2.textContent = category
+    ? "Các bài viết khác: " + category
+    : "Tất cả bài viết";
 
-  if (posts.length === 0) {
-    featured.textContent = category
-      ? 'Chưa có bài viết thuộc chuyên mục "' + category + '".'
-      : "Chưa có bài viết trong dữ liệu.";
+  if (!posts.length) {
+    featured.textContent = "Chưa có bài viết phù hợp.";
     return;
   }
 
@@ -169,12 +161,17 @@ function renderPosts(category = "") {
   const remaining = posts.slice(3);
 
   if (remaining.length) {
-    remaining.forEach((post) => {
-      list.appendChild(createPostCard(post));
-    });
+    remaining.forEach((post) => list.appendChild(createPostCard(post)));
   } else {
     list.textContent = "Không còn bài viết khác.";
   }
+
+  console.log("Tổng số bài:", allPosts.length);
+  console.table(allPosts.map((post) => ({
+    id: post.id,
+    title: post.title,
+    date: post.publishedAt
+  })));
 }
 
 async function initWebsite() {
@@ -184,34 +181,27 @@ async function initWebsite() {
       loadJSON("data/posts.json")
     ]);
 
-    const jsonPosts = Array.isArray(postData.posts)
-      ? postData.posts
-      : [];
-
-    allPosts = mergePosts(jsonPosts, getSavedPosts());
+    const jsonPosts = Array.isArray(postData.posts) ? postData.posts : [];
+    allPosts = preparePosts(jsonPosts, getSavedPosts());
 
     const menu = document.getElementById("categoryMenu");
-
     if (menu) {
       menu.replaceChildren();
       createMenu(menuData.menu || [], menu);
     }
 
     renderPosts();
-
-    console.log("Số bài từ JSON:", jsonPosts.length);
-    console.log("Số bài đã lưu trên trình duyệt:", getSavedPosts().length);
-    console.log("Tổng số bài hiển thị:", allPosts.length);
   } catch (error) {
     console.error(error);
-
     const featured = document.getElementById("featuredPosts");
     if (featured) {
       featured.textContent =
-        "Lỗi tải dữ liệu. Kiểm tra data/menu.json và data/posts.json.";
+        "Không tải được dữ liệu. Kiểm tra data/posts.json và data/menu.json.";
     }
   }
 }
 
 initWebsite();
+
+
 
