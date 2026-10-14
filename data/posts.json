@@ -1,41 +1,378 @@
-
 {
   "posts": [
     {
-      "id": "demo-001",
-      "title": "Bài viết minh họa số 1",
-      "slug": "bai-viet-minh-hoa-1",
-      "excerpt": "Đây là dữ liệu minh họa để kiểm tra cách website hiển thị bài viết.",
-      "content": "Nội dung minh họa. Cần thay bằng nội dung bài báo thực tế được thu thập từ nguồn tin.",
-      "author": "Dữ liệu minh họa",
-      "category": "Thế giới",
-      "publishedAt": "2026-10-14",
-      "source": "Dữ liệu minh họa",
-      "url": "#"
-    },
-    {
-      "id": "demo-002",
-      "title": "Bài viết minh họa số 2",
-      "slug": "bai-viet-minh-hoa-2",
-      "excerpt": "Bài viết thứ hai dùng để kiểm tra danh sách tin trên trang chủ.",
-      "content": "Nội dung minh họa. Cần thay bằng nội dung bài báo thực tế được thu thập từ nguồn tin.",
-      "author": "Dữ liệu minh họa",
-      "category": "Thế giới",
+      "id": "dantri-001",
+      "title": "Thủy thủ bí ẩn khiến ông Trump muốn hủy công nghệ tỷ USD trên tàu sân bay",
+      "slug": "thuy-thu-bi-an-khien-ong-trump-muon-huy-cong-nghe-ty-usd-tren-tau-san-bay",
+      "excerpt": "Cuộc trò chuyện với một thủy thủ bí ẩn khiến Tổng thống Mỹ Donald Trump đảo ngược dự án vũ khí trị giá hàng tỷ USD của Hải quân Mỹ.",
+      "content": "Bài báo nói về tranh cãi giữa hệ thống phóng máy bay bằng hơi nước và hệ thống phóng điện từ trên tàu sân bay Mỹ, cùng những cân nhắc về chi phí, độ tin cậy và công nghệ.",
+      "author": "Minh Phương",
+      "category": [
+        "Thế giới",
+        "Quân sự",
+        "Mới nhất"
+      ],
       "publishedAt": "2026-10-13",
-      "source": "Dữ liệu minh họa",
-      "url": "#"
+      "source": "Dân trí",
+      "url": "https://dantri.com.vn/the-gioi/thuy-thu-bi-an-khien-ong-trump-muon-huy-cong-nghe-ty-usd-tren-tau-san-bay-20261013144113269.htm"
     },
     {
-      "id": "demo-003",
-      "title": "Bài viết minh họa số 3",
-      "slug": "bai-viet-minh-hoa-3",
-      "excerpt": "Bài viết thứ ba dùng để kiểm tra khu vực ba tin mới nhất.",
-      "content": "Nội dung minh họa. Cần thay bằng nội dung bài báo thực tế được thu thập từ nguồn tin.",
-      "author": "Dữ liệu minh họa",
-      "category": "Thế giới",
+      "id": "dantri-002",
+      "title": "Ukraine bóc tách chi tiết “vũ khí không thể đánh chặn” của Nga",
+      "slug": "ukraine-boc-tach-chi-tiet-vu-khi-khong-the-danh-chan-cua-nga",
+      "excerpt": "Ukraine công bố thông tin phân tích tên lửa Kinzhal của Nga và các bộ phận cấu thành.",
+      "content": "Bài báo trình bày thông tin do tình báo Ukraine công bố về cấu tạo, linh kiện và hoạt động sản xuất tên lửa Kinzhal, đồng thời dẫn các tuyên bố liên quan đến khả năng đánh chặn.",
+      "author": "Đức Hoàng",
+      "category": [
+        "Thế giới",
+        "Quân sự",
+        "Phân tích - Bình luận",
+        "Mới nhất"
+      ],
+      "publishedAt": "2026-10-13",
+      "source": "Dân trí",
+      "url": "https://dantri.com.vn/the-gioi/ukraine-boc-tach-chi-tiet-vu-khi-khong-the-danh-chan-cua-nga-20261013134504819.htm"
+    },
+    {
+      "id": "dantri-003",
+      "title": "Chiến sự Ukraine 13/10: Kế hoạch thực sự của Nga cho năm 2026 đã lộ diện",
+      "slug": "chien-su-ukraine-1310-ke-hoach-thuc-su-cua-nga-cho-nam-2026-da-lo-dien",
+      "excerpt": "Bài viết cập nhật diễn biến chiến sự tại Ukraine và đánh giá về hướng tiến công của Nga.",
+      "content": "Bài báo tổng hợp thông tin về hoạt động quân sự tại Ukraine, trong đó có các khu vực Liman và Zaporizhia, dựa trên những nguồn được bài viết dẫn lại.",
+      "author": "N. Tuấn Sơn",
+      "category": [
+        "Thế giới",
+        "Quân sự",
+        "Phân tích - Bình luận",
+        "Mới nhất"
+      ],
+      "publishedAt": "2026-10-13",
+      "source": "Dân trí",
+      "url": "https://dantri.com.vn/the-gioi/chien-su-ukraine-1310-ke-hoach-thuc-su-cua-nga-cho-nam-2026-da-lo-dien-20261013112151275.htm"
+    },
+    {
+      "id": "dantri-004",
+      "title": "Houthi xuyên thủng lá chắn phòng không tối tân của Ả rập Xê út thế nào?",
+      "slug": "houthi-xuyen-thung-la-chan-phong-khong-toi-tan-cua-a-rap-xe-ut-the-nao",
+      "excerpt": "Bài báo phân tích các cuộc tấn công của Houthi và những vấn đề được đặt ra đối với hệ thống phòng không của Ả rập Xê út.",
+      "content": "Bài báo xem xét các vụ tấn công nhằm vào mục tiêu tại Ả rập Xê út và những hạn chế, thách thức của hệ thống phòng không theo các nguồn được dẫn.",
+      "author": "Đức Hoàng",
+      "category": [
+        "Thế giới",
+        "Quân sự",
+        "Phân tích - Bình luận",
+        "Mới nhất"
+      ],
+      "publishedAt": "2026-10-13",
+      "source": "Dân trí",
+      "url": "https://dantri.com.vn/the-gioi/houthi-xuyen-thung-la-chan-phong-khong-toi-tan-cua-a-rap-xe-ut-the-nao-20261013083811443.htm"
+    },
+    {
+      "id": "dantri-005",
+      "title": "Houthi cảnh báo đáp trả nhanh chóng Mỹ nếu tham chiến cùng Ả rập Xê út",
+      "slug": "houthi-canh-bao-dap-tra-nhanh-chong-my-neu-tham-chien-cung-a-rap-xe-ut",
+      "excerpt": "Houthi cảnh báo sẽ đáp trả nếu Mỹ tham chiến cùng Ả rập Xê út tại Yemen.",
+      "content": "Bài báo đề cập phản ứng của Houthi trước khả năng Mỹ tham gia cùng Ả rập Xê út và bối cảnh căng thẳng tại Yemen.",
+      "author": "Dân trí",
+      "category": [
+        "Thế giới",
+        "Quân sự",
+        "Mới nhất"
+      ],
+      "publishedAt": "2026-10-13",
+      "source": "Dân trí",
+      "url": "https://dantri.com.vn/the-gioi/houthi-canh-bao-dap-tra-nhanh-chong-my-neu-tham-chien-cung-a-rap-xe-ut-20261013075222085.htm"
+    },
+    {
+      "id": "dantri-006",
+      "title": "Nga rút hàng loạt xe tăng T-90M hiện đại nhất khỏi Ukraine về sửa chữa?",
+      "slug": "nga-rut-hang-loat-xe-tang-t-90m-hien-dai-nhat-khoi-ukraine-ve-sua-chua",
+      "excerpt": "Bài viết đề cập thông tin về những xe tăng T-90M bị hư hại được cho là đưa khỏi chiến trường để sửa chữa.",
+      "content": "Bài báo tổng hợp các hình ảnh và thông tin được lan truyền về việc Nga có thể đưa xe tăng T-90M bị hư hại về cơ sở sửa chữa.",
+      "author": "Dân trí",
+      "category": [
+        "Thế giới",
+        "Quân sự",
+        "Phân tích - Bình luận",
+        "Mới nhất"
+      ],
       "publishedAt": "2026-10-12",
-      "source": "Dữ liệu minh họa",
-      "url": "#"
+      "source": "Dân trí",
+      "url": "https://dantri.com.vn/the-gioi/nga-rut-hang-loat-xe-tang-t-90m-hien-dai-nhat-khoi-ukraine-ve-sua-chua-20261012091145617.htm"
+    },
+    {
+      "id": "dantri-007",
+      "title": "Chiến sự Ukraine 12/10: Căng thẳng tiếp diễn ở điểm nóng Kharkov",
+      "slug": "chien-su-ukraine-1210-cang-thang-tiep-dien-o-diem-nong-kharkov",
+      "excerpt": "Bài viết cập nhật diễn biến quân sự tại Kharkov và các khu vực lân cận.",
+      "content": "Bài báo tường thuật tình hình giao tranh tại khu vực Kharkov, dựa trên các thông tin và đánh giá được dẫn trong bài.",
+      "author": "N. Tuấn Sơn",
+      "category": [
+        "Thế giới",
+        "Quân sự",
+        "Phân tích - Bình luận",
+        "Mới nhất"
+      ],
+      "publishedAt": "2026-10-12",
+      "source": "Dân trí",
+      "url": "https://dantri.com.vn/the-gioi/chien-su-ukraine-1210-cang-thang-tiep-dien-o-diem-nong-kharkov-20261012112432450.htm"
+    },
+    {
+      "id": "dantri-008",
+      "title": "Ukraine cảnh báo Nga tăng tốc vượt mặt “sát thủ vô hình” của Kiev",
+      "slug": "ukraine-canh-bao-nga-tang-toc-vuot-mat-sat-thu-vo-hinh-cua-kiev",
+      "excerpt": "Bài báo đề cập việc Nga liên tục cập nhật vũ khí và chiến thuật trong các đợt không kích.",
+      "content": "Bài báo tổng hợp cảnh báo của Ukraine về việc Nga thay đổi vũ khí, chiến thuật và cách tiến hành các đợt không kích.",
+      "author": "Dân trí",
+      "category": [
+        "Thế giới",
+        "Quân sự",
+        "Phân tích - Bình luận",
+        "Mới nhất"
+      ],
+      "publishedAt": "2026-10-12",
+      "source": "Dân trí",
+      "url": "https://dantri.com.vn/the-gioi/ukraine-canh-bao-nga-tang-toc-vuot-mat-sat-thu-vo-hinh-cua-kiev-20261012101210978.htm"
+    },
+    {
+      "id": "dantri-009",
+      "title": "Ông Trump: Nga - Ukraine đồng ý lệnh ngừng bắn năng lượng ngay lập tức",
+      "slug": "ong-trump-nga-ukraine-dong-y-lenh-ngung-ban-nang-luong-ngay-lap-tuc",
+      "excerpt": "Tổng thống Mỹ Donald Trump nói Nga và Ukraine đã đồng ý lệnh ngừng bắn năng lượng có hiệu lực ngay lập tức.",
+      "content": "Bài báo đưa tin về tuyên bố của Tổng thống Mỹ liên quan đến lệnh ngừng bắn năng lượng giữa Nga và Ukraine.",
+      "author": "Dân trí",
+      "category": [
+        "Thế giới",
+        "Quân sự",
+        "Mới nhất"
+      ],
+      "publishedAt": "2026-10-11",
+      "source": "Dân trí",
+      "url": "https://dantri.com.vn/the-gioi/ong-trump-nga-ukraine-dong-y-lenh-ngung-ban-nang-luong-ngay-lap-tuc-20261011213848586.htm"
+    },
+    {
+      "id": "dantri-010",
+      "title": "Ukraine ra điều kiện để ngừng tấn công nhà máy lọc dầu của Nga",
+      "slug": "ukraine-ra-dieu-kien-de-ngung-tan-cong-nha-may-loc-dau-cua-nga",
+      "excerpt": "Bài báo đề cập điều kiện Ukraine đưa ra liên quan đến việc ngừng tấn công các cơ sở lọc dầu của Nga.",
+      "content": "Bài báo trình bày các điều kiện được Ukraine nêu ra và bối cảnh liên quan đến những cuộc tấn công nhằm vào cơ sở năng lượng.",
+      "author": "Dân trí",
+      "category": [
+        "Thế giới",
+        "Quân sự",
+        "Mới nhất"
+      ],
+      "publishedAt": "2026-10-11",
+      "source": "Dân trí",
+      "url": "https://dantri.com.vn/the-gioi/ukraine-ra-dieu-kien-de-ngung-tan-cong-nha-may-loc-dau-cua-nga-20261011195538289.htm"
+    },
+    {
+      "id": "dantri-011",
+      "title": "NATO tuyên bố “Lý thuyết chiến thắng” mới không nhằm chống lại Nga",
+      "slug": "nato-tuyen-bo-ly-thuyet-chien-thang-moi-khong-nham-chong-lai-nga",
+      "excerpt": "NATO cho biết kế hoạch phòng thủ mới ở sườn phía đông không nhằm vào Nga.",
+      "content": "Bài báo đề cập kế hoạch phòng thủ mới mang tên “Lý thuyết chiến thắng” và tuyên bố của NATO về mục tiêu của kế hoạch.",
+      "author": "Dân trí",
+      "category": [
+        "Thế giới",
+        "Quân sự",
+        "Mới nhất"
+      ],
+      "publishedAt": "2026-10-11",
+      "source": "Dân trí",
+      "url": "https://dantri.com.vn/the-gioi/nato-tuyen-bo-ly-thuyet-chien-thang-moi-khong-nham-chong-lai-nga-20261011121001302.htm"
+    },
+    {
+      "id": "dantri-012",
+      "title": "Chiến sự Ukraine 11/10: Ukraine khó đảo chiều Kharkov, Nga bí thế tại Liman",
+      "slug": "chien-su-ukraine-1110-ukraine-kho-dao-chieu-kharkov-nga-bi-the-tai-liman",
+      "excerpt": "Bài báo cập nhật tình hình tại Kharkov và Liman trong chiến sự Ukraine.",
+      "content": "Bài báo tổng hợp thông tin về diễn biến quân sự tại Kharkov và Liman, bao gồm các hoạt động của lực lượng Nga và Ukraine.",
+      "author": "N. Tuấn Sơn",
+      "category": [
+        "Thế giới",
+        "Quân sự",
+        "Phân tích - Bình luận",
+        "Mới nhất"
+      ],
+      "publishedAt": "2026-10-11",
+      "source": "Dân trí",
+      "url": "https://dantri.com.vn/the-gioi/chien-su-ukraine-1110-ukraine-kho-dao-chieu-kharkov-nga-bi-the-tai-liman-20261011101904138.htm"
+    },
+    {
+      "id": "dantri-013",
+      "title": "Ông Trump nêu lý do Ukraine cần có tổng thống mới, Nga lên tiếng",
+      "slug": "ong-trump-neu-ly-do-ukraine-can-co-tong-thong-moi-nga-len-tieng",
+      "excerpt": "Bài báo đưa tin phát biểu của Tổng thống Mỹ Donald Trump về lãnh đạo Ukraine và phản ứng từ Nga.",
+      "content": "Bài báo tường thuật phát biểu của ông Trump về khả năng Ukraine cần lãnh đạo mới và phản ứng liên quan từ phía Nga.",
+      "author": "Dân trí",
+      "category": [
+        "Thế giới",
+        "Quân sự",
+        "Mới nhất"
+      ],
+      "publishedAt": "2026-10-11",
+      "source": "Dân trí",
+      "url": "https://dantri.com.vn/the-gioi/ong-trump-neu-ly-do-ukraine-can-co-tong-thong-moi-nga-len-tieng-20261011064332717.htm"
+    },
+    {
+      "id": "dantri-014",
+      "title": "Sân bay Ả rập Xê út lại bị tập kích, Mỹ xem xét tham gia tấn công Houthi",
+      "slug": "san-bay-a-rap-xe-ut-lai-bi-tap-kich-my-xem-xet-tham-gia-tan-cong-houthi",
+      "excerpt": "Bài báo đề cập các vụ tập kích sân bay tại Riyadh và khả năng Mỹ phối hợp với Ả rập Xê út.",
+      "content": "Bài báo tổng hợp thông tin về các vụ tập kích sân bay tại Ả rập Xê út và việc Mỹ cân nhắc kịch bản tham gia hành động quân sự chống Houthi.",
+      "author": "Dân trí",
+      "category": [
+        "Thế giới",
+        "Quân sự",
+        "Mới nhất"
+      ],
+      "publishedAt": "2026-10-11",
+      "source": "Dân trí",
+      "url": "https://dantri.com.vn/the-gioi/san-bay-a-rap-xe-ut-lai-bi-tap-kich-my-xem-xet-tham-gia-tan-cong-houthi-20261011005504067.htm"
+    },
+    {
+      "id": "dantri-015",
+      "title": "Cuộc điện đàm “không ai muốn cúp máy trước” giữa 2 Tổng thống Trump - Putin",
+      "slug": "cuoc-dien-dam-khong-ai-muon-cup-may-truoc-giua-2-tong-thong-trump-putin",
+      "excerpt": "Bài báo đề cập thông tin từ Điện Kremlin về cuộc điện đàm giữa Tổng thống Nga Vladimir Putin và Tổng thống Mỹ Donald Trump.",
+      "content": "Bài báo thuật lại thông tin được Điện Kremlin công bố về cuộc điện đàm giữa hai nhà lãnh đạo Mỹ và Nga.",
+      "author": "Dân trí",
+      "category": [
+        "Thế giới",
+        "Mới nhất"
+      ],
+      "publishedAt": "2026-10-10",
+      "source": "Dân trí",
+      "url": "https://dantri.com.vn/the-gioi/cuoc-dien-dam-khong-ai-muon-cup-may-truoc-giua-2-tong-thong-trump-putin-20261010215829905.htm"
+    },
+    {
+      "id": "dantri-016",
+      "title": "Ông Trump nói sẽ không đổi ý về thỏa thuận để Nga bán 1,8 triệu tấn diesel",
+      "slug": "ong-trump-noi-se-khong-doi-y-ve-thoa-thuan-de-nga-ban-18-trieu-tan-diesel",
+      "excerpt": "Bài báo đề cập quan điểm của Tổng thống Mỹ về thỏa thuận cho phép Nga bán diesel ra thị trường.",
+      "content": "Bài báo trình bày phát biểu của ông Trump về thỏa thuận liên quan đến lượng diesel của Nga và những phản ứng được nhắc tới.",
+      "author": "Dân trí",
+      "category": [
+        "Thế giới",
+        "Mới nhất"
+      ],
+      "publishedAt": "2026-10-10",
+      "source": "Dân trí",
+      "url": "https://dantri.com.vn/the-gioi/ong-trump-noi-se-khong-doi-y-ve-thoa-thuan-de-nga-ban-18-trieu-tan-diesel-20261010192820643.htm"
+    },
+    {
+      "id": "dantri-017",
+      "title": "Ukraine tiến về “vành đai pháo đài”, tìm cách bẻ gọng kìm siết chặt của Nga",
+      "slug": "ukraine-tien-ve-vanh-dai-phao-dai-tim-cach-be-gong-kim-siet-chat-cua-nga",
+      "excerpt": "Bài báo đề cập chiến dịch phản công của Ukraine tại Donetsk và nỗ lực ngăn Nga siết các mũi tiến công.",
+      "content": "Bài báo tổng hợp thông tin về hoạt động quân sự của Ukraine tại Donetsk và mục tiêu bảo vệ các thành trì còn kiểm soát.",
+      "author": "Dân trí",
+      "category": [
+        "Thế giới",
+        "Quân sự",
+        "Phân tích - Bình luận",
+        "Mới nhất"
+      ],
+      "publishedAt": "2026-10-10",
+      "source": "Dân trí",
+      "url": "https://dantri.com.vn/the-gioi/ukraine-tien-ve-vanh-dai-phao-dai-tim-cach-be-gong-kim-siet-chat-cua-nga-20261010120305120.htm"
+    },
+    {
+      "id": "dantri-018",
+      "title": "Chiến sự Ukraine 10/10: Vòng vây khổng lồ Kharkov liên tục bị thu hẹp",
+      "slug": "chien-su-ukraine-1010-vong-vay-khong-lo-kharkov-lien-tuc-bi-thu-hep",
+      "excerpt": "Bài báo cập nhật tình hình tại Kharkov và các hoạt động quân sự quanh Vovchansk.",
+      "content": "Bài báo tổng hợp diễn biến chiến trường ở vùng đông bắc Kharkov, gồm các hoạt động của lực lượng Nga và Ukraine theo nguồn được dẫn.",
+      "author": "N. Tuấn Sơn",
+      "category": [
+        "Thế giới",
+        "Quân sự",
+        "Phân tích - Bình luận",
+        "Mới nhất"
+      ],
+      "publishedAt": "2026-10-10",
+      "source": "Dân trí",
+      "url": "https://dantri.com.vn/the-gioi/chien-su-ukraine-1010-vong-vay-khong-lo-kharkov-lien-tuc-bi-thu-hep-20261010100241768.htm"
+    },
+    {
+      "id": "dantri-019",
+      "title": "Belarus triệu tập nhà ngoại giao Ukraine vì vụ tập kích Nga, Kiev phản bác",
+      "slug": "belarus-trieu-tap-nha-ngoai-giao-ukraine-vi-vu-tap-kich-nga-kiev-phan-bac",
+      "excerpt": "Bài báo đề cập việc Belarus triệu tập đại diện ngoại giao Ukraine liên quan đến một vụ tập kích.",
+      "content": "Bài báo tường thuật động thái ngoại giao của Belarus và phản ứng của Ukraine liên quan đến vụ việc được đề cập.",
+      "author": "Dân trí",
+      "category": [
+        "Thế giới",
+        "Quân sự",
+        "Mới nhất"
+      ],
+      "publishedAt": "2026-10-10",
+      "source": "Dân trí",
+      "url": "https://dantri.com.vn/the-gioi/belarus-trieu-tap-nha-ngoai-giao-ukraine-vi-vu-tap-kich-nga-kiev-phan-bac-20261010083555843.htm"
+    },
+    {
+      "id": "dantri-020",
+      "title": "Chiến sự Ukraine 9/10: Những ngày khốc liệt ở Dobropillia",
+      "slug": "chien-su-ukraine-910-nhung-ngay-khoc-liet-o-dobropillia",
+      "excerpt": "Bài báo cập nhật giao tranh tại Dobropillia và các diễn biến trên chiến trường Ukraine.",
+      "content": "Bài báo tổng hợp thông tin về các hoạt động quân sự tại Dobropillia và những vấn đề chiến thuật được các nguồn tin nêu ra.",
+      "author": "N. Tuấn Sơn",
+      "category": [
+        "Thế giới",
+        "Quân sự",
+        "Phân tích - Bình luận",
+        "Mới nhất"
+      ],
+      "publishedAt": "2026-10-09",
+      "source": "Dân trí",
+      "url": "https://dantri.com.vn/the-gioi/chien-su-ukraine-910-nhung-ngay-khoc-liet-o-dobropillia-20261009112126973.htm"
+    },
+    {
+      "id": "dantri-021",
+      "title": "Lỗ hổng vài phút từ phương Tây khiến Ukraine lỡ thời cơ đối phó hỏa lực Nga",
+      "slug": "lo-hong-vai-phut-tu-phuong-tay-khien-ukraine-lo-thoi-co-doi-pho-hoa-luc-nga",
+      "excerpt": "Ukraine tìm hiểu nguyên nhân hai ngày liên tiếp không nhận được cảnh báo sớm từ phương Tây về các cuộc tấn công tên lửa của Nga.",
+      "content": "Bài báo đề cập vai trò của cảnh báo sớm và thông tin tình báo trong việc giúp Ukraine chuẩn bị trước các cuộc tấn công tên lửa.",
+      "author": "Đức Hoàng",
+      "category": [
+        "Thế giới",
+        "Phân tích - Bình luận",
+        "Mới nhất"
+      ],
+      "publishedAt": "2026-10-14",
+      "source": "Dân trí",
+      "url": "https://dantri.com.vn/the-gioi/lo-hong-vai-phut-tu-phuong-tay-khien-ukraine-lo-thoi-co-doi-pho-hoa-luc-nga-20261014182218319.htm"
+    },
+    {
+      "id": "dantri-022",
+      "title": "Hàn Quốc công bố chiến lược dân số mới",
+      "slug": "han-quoc-cong-bo-chien-luoc-dan-so-moi",
+      "excerpt": "Hàn Quốc công bố kế hoạch 5 năm nhằm ứng phó suy giảm dân số và biến đổi nhân khẩu học.",
+      "content": "Bài báo giới thiệu kế hoạch dân số mới của Hàn Quốc và các nhóm giải pháp nhằm ứng phó với thay đổi nhân khẩu học.",
+      "author": "Minh Phương",
+      "category": [
+        "Thế giới",
+        "Mới nhất"
+      ],
+      "publishedAt": "2026-10-14",
+      "source": "Dân trí",
+      "url": "https://dantri.com.vn/the-gioi/han-quoc-cong-bo-chien-luoc-dan-so-moi-20261014145156665.htm"
+    },
+    {
+      "id": "dantri-026",
+      "title": "Nghẹt thở cảnh chiến sĩ đu cáp từ trực thăng cứu người ở vùng ngập giả định",
+      "slug": "nghet-tho-canh-chien-si-du-cap-tu-truc-thang-cuu-nguoi-o-vung-ngap-gia-dinh",
+      "excerpt": "Video Dân trí 360 ghi lại hoạt động diễn tập cứu hộ bằng cách chiến sĩ đu cáp từ trực thăng.",
+      "content": "Bản tin video thuộc Dân trí 360 về tình huống diễn tập cứu người ở khu vực ngập giả định.",
+      "author": "Nguyễn Hải - Nguyễn Văn Đức",
+      "category": [
+        "Dân trí 360",
+        "Mới nhất"
+      ],
+      "publishedAt": "2026-10-14",
+      "source": "Dân trí 360",
+      "url": "https://dantri.com.vn/dt360/nghet-tho-canh-chien-si-du-cap-tu-truc-thang-cuu-nguoi-o-vung-ngap-gia-dinh-20261014150258263.htm"
     }
   ]
 }
