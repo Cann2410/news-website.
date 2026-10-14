@@ -11,6 +11,26 @@ async function loadJSON(path) {
 
 let allPosts = [];
 
+function getSavedPosts() {
+  try {
+    return JSON.parse(localStorage.getItem("newsWebsitePosts") || "[]");
+  } catch {
+    return [];
+  }
+}
+
+function getAllPosts(jsonPosts) {
+  const savedPosts = getSavedPosts();
+  const postsByUrl = new Map();
+
+  [...jsonPosts, ...savedPosts].forEach((post) => {
+    const key = post.url || post.id;
+    if (key) postsByUrl.set(key, post);
+  });
+
+  return [...postsByUrl.values()];
+}
+
 function createMenu(items, container) {
   items.forEach((item) => {
     const li = document.createElement("li");
@@ -28,12 +48,7 @@ function createMenu(items, container) {
       link.href = "#";
       link.addEventListener("click", (event) => {
         event.preventDefault();
-
-        if (item.type === "category") {
-          renderPosts(item.title);
-        } else {
-          renderPosts("");
-        }
+        renderPosts(item.title || "");
       });
     }
 
@@ -110,15 +125,14 @@ function renderPosts(category = "") {
   featured.innerHTML = "";
   postList.innerHTML = "";
 
-  const mainHeading = featured.closest("section")?.querySelector("h2");
+  const featuredHeading = featured.closest("section")?.querySelector("h2");
+  const listHeading = postList.closest("section")?.querySelector("h2");
 
-  if (mainHeading) {
-    mainHeading.textContent = category
+  if (featuredHeading) {
+    featuredHeading.textContent = category
       ? `Tin tức: ${category}`
       : "3 bài viết mới nhất";
   }
-
-  const listHeading = postList.closest("section")?.querySelector("h2");
 
   if (listHeading) {
     listHeading.textContent = category
@@ -129,8 +143,7 @@ function renderPosts(category = "") {
   if (posts.length === 0) {
     featured.textContent = category
       ? `Chưa có bài viết thuộc chuyên mục "${category}".`
-      : "Chưa có bài viết. Hãy bổ sung dữ liệu vào data/posts.json.";
-
+      : "Chưa có bài viết. Hãy bổ sung dữ liệu.";
     return;
   }
 
@@ -154,7 +167,7 @@ async function initWebsite() {
       loadJSON("data/posts.json")
     ]);
 
-    allPosts = Array.isArray(postData.posts) ? postData.posts : [];
+    allPosts = getAllPosts(postData.posts || []);
 
     const menu = document.getElementById("categoryMenu");
 
@@ -165,13 +178,12 @@ async function initWebsite() {
 
     renderPosts();
   } catch (error) {
-    console.error("Lỗi tải dữ liệu:", error);
+    console.error(error);
 
     const featured = document.getElementById("featuredPosts");
-
     if (featured) {
       featured.textContent =
-        "Không tải được dữ liệu. Hãy kiểm tra data/menu.json và data/posts.json.";
+        "Không tải được dữ liệu. Hãy kiểm tra các file JSON.";
     }
   }
 }
