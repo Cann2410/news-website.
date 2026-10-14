@@ -1,9 +1,9 @@
 
 async function loadJSON(path) {
-  const response = await fetch(path);
+  const response = await fetch(path + "?v=" + Date.now());
 
   if (!response.ok) {
-    throw new Error(`Không thể tải dữ liệu: ${path}`);
+    throw new Error("Không tải được " + path);
   }
 
   return response.json();
@@ -13,179 +13,171 @@ let allPosts = [];
 
 function getSavedPosts() {
   try {
-    const data = JSON.parse(
+    const posts = JSON.parse(
       localStorage.getItem("newsWebsitePosts") || "[]"
     );
 
-    return Array.isArray(data) ? data : [];
-  } catch (error) {
-    console.error("Không đọc được LocalStorage:", error);
+    return Array.isArray(posts) ? posts : [];
+  } catch {
     return [];
   }
 }
 
 function mergePosts(jsonPosts, savedPosts) {
-  const postsMap = new Map();
+  const map = new Map();
 
-  [...jsonPosts, ...savedPosts].forEach((post) => {
-    if (!post || !post.id || !post.title) return;
+  [...jsonPosts, ...savedPosts].forEach((post, index) => {
+    if (!post || !post.title) return;
 
-    const key = post.url || String(post.id);
-    postsMap.set(key, post);
+    const normalized = {
+      ...post,
+      id: String(post.id || "post-" + index)
+    };
+
+    const key = normalized.url || normalized.id;
+    map.set(key, normalized);
   });
 
-  return Array.from(postsMap.values());
+  return [...map.values()];
 }
 
 function sortPosts(posts) {
   return [...posts].sort((a, b) => {
     const dateA = Date.parse(a.publishedAt || "") || 0;
     const dateB = Date.parse(b.publishedAt || "") || 0;
-
     return dateB - dateA;
   });
 }
 
-function createMenu(items, container) {
+function createMenu(items, parent) {
   items.forEach((item) => {
     const li = document.createElement("li");
-    const link = document.createElement("a");
+    const a = document.createElement("a");
 
-    link.textContent = item.title || "Chưa đặt tên";
+    a.textContent = item.title || "Chuyên mục";
 
     if (item.type === "home") {
-      link.href = "index.html";
+      a.href = "index.html";
     } else if (item.type === "external") {
-      link.href = item.url || "#";
-      link.target = "_blank";
-      link.rel = "noopener noreferrer";
+      a.href = item.url || "#";
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
     } else {
-      link.href = "#";
-
-      link.addEventListener("click", (event) => {
+      a.href = "#";
+      a.addEventListener("click", (event) => {
         event.preventDefault();
         renderPosts(item.title || "");
       });
     }
 
-    li.appendChild(link);
+    li.appendChild(a);
 
-    if (Array.isArray(item.children) && item.children.length > 0) {
-      const submenu = document.createElement("ul");
-      submenu.className = "submenu";
-
-      createMenu(item.children, submenu);
-      li.appendChild(submenu);
+    if (Array.isArray(item.children) && item.children.length) {
+      const childMenu = document.createElement("ul");
+      childMenu.className = "submenu";
+      createMenu(item.children, childMenu);
+      li.appendChild(childMenu);
     }
 
-    container.appendChild(li);
+    parent.appendChild(li);
   });
 }
 
 function createPostCard(post) {
-  const article = document.createElement("article");
-  article.className = "post-card";
+  const card = document.createElement("article");
+  card.className = "post-card";
 
-  const title = document.createElement("h3");
-  const titleLink = document.createElement("a");
+  const heading = document.createElement("h3");
+  const link = document.createElement("a");
 
-  titleLink.textContent = post.title || "Chưa có tiêu đề";
-  titleLink.href =
-    "detail.html?id=" + encodeURIComponent(String(post.id));
+  link.textContent = post.title || "Chưa có tiêu đề";
+  link.href = "detail.html?id=" + encodeURIComponent(post.id);
 
-  title.appendChild(titleLink);
-  article.appendChild(title);
+  heading.appendChild(link);
+  card.appendChild(heading);
 
   if (post.publishedAt) {
     const date = document.createElement("p");
     date.className = "post-date";
     date.textContent = "Ngày đăng: " + post.publishedAt;
-    article.appendChild(date);
+    card.appendChild(date);
   }
 
   if (post.category) {
     const category = document.createElement("p");
     category.className = "post-category";
     category.textContent = "Chuyên mục: " + post.category;
-    article.appendChild(category);
+    card.appendChild(category);
   }
 
   if (post.excerpt) {
     const excerpt = document.createElement("p");
     excerpt.className = "post-excerpt";
     excerpt.textContent = post.excerpt;
-    article.appendChild(excerpt);
+    card.appendChild(excerpt);
   }
 
-  return article;
+  return card;
 }
 
 function renderPosts(category = "") {
   const featured = document.getElementById("featuredPosts");
-  const postList = document.getElementById("postList");
+  const list = document.getElementById("postList");
 
-  if (!featured || !postList) return;
+  if (!featured || !list) return;
 
   let posts = sortPosts(allPosts);
 
   if (category) {
-    posts = posts.filter((post) => {
-      return (
-        (post.category || "").trim().toLowerCase() ===
-        category.trim().toLowerCase()
-      );
-    });
+    posts = posts.filter((post) =>
+      (post.category || "").trim().toLowerCase() ===
+      category.trim().toLowerCase()
+    );
   }
 
   featured.replaceChildren();
-  postList.replaceChildren();
+  list.replaceChildren();
 
-  const featuredSection = featured.closest("section");
-  const listSection = postList.closest("section");
+  const featuredTitle =
+    featured.closest("section")?.querySelector("h2");
+  const listTitle =
+    list.closest("section")?.querySelector("h2");
 
-  const featuredHeading = featuredSection?.querySelector("h2");
-  const listHeading = listSection?.querySelector("h2");
-
-  if (featuredHeading) {
-    featuredHeading.textContent = category
-      ? `Tin tức: ${category}`
+  if (featuredTitle) {
+    featuredTitle.textContent = category
+      ? "Tin tức: " + category
       : "3 bài viết mới nhất";
   }
 
-  if (listHeading) {
-    listHeading.textContent = category
-      ? `Các bài viết khác: ${category}`
+  if (listTitle) {
+    listTitle.textContent = category
+      ? "Các bài viết khác: " + category
       : "Tất cả bài viết";
   }
 
   if (posts.length === 0) {
     featured.textContent = category
-      ? `Chưa có bài viết thuộc chuyên mục "${category}".`
-      : "Chưa có bài viết. Hãy bổ sung dữ liệu bài báo.";
-
-    postList.textContent = "";
+      ? 'Chưa có bài viết thuộc chuyên mục "' + category + '".'
+      : "Chưa có bài viết trong dữ liệu.";
     return;
   }
 
-  const featuredPosts = posts.slice(0, 3);
-  const remainingPosts = posts.slice(3);
-
-  featuredPosts.forEach((post) => {
+  posts.slice(0, 3).forEach((post) => {
     featured.appendChild(createPostCard(post));
   });
 
-  if (remainingPosts.length > 0) {
-    remainingPosts.forEach((post) => {
-      postList.appendChild(createPostCard(post));
+  const remaining = posts.slice(3);
+
+  if (remaining.length) {
+    remaining.forEach((post) => {
+      list.appendChild(createPostCard(post));
     });
   } else {
-    postList.textContent = "Không còn bài viết khác.";
+    list.textContent = "Không còn bài viết khác.";
   }
 }
 
 async function initWebsite() {
-  const featured = document.getElementById("featuredPosts");
-
   try {
     const [menuData, postData] = await Promise.all([
       loadJSON("data/menu.json"),
@@ -206,14 +198,20 @@ async function initWebsite() {
     }
 
     renderPosts();
-  } catch (error) {
-    console.error("Lỗi khởi tạo website:", error);
 
+    console.log("Số bài từ JSON:", jsonPosts.length);
+    console.log("Số bài đã lưu trên trình duyệt:", getSavedPosts().length);
+    console.log("Tổng số bài hiển thị:", allPosts.length);
+  } catch (error) {
+    console.error(error);
+
+    const featured = document.getElementById("featuredPosts");
     if (featured) {
       featured.textContent =
-        "Không tải được dữ liệu. Hãy kiểm tra data/menu.json và data/posts.json.";
+        "Lỗi tải dữ liệu. Kiểm tra data/menu.json và data/posts.json.";
     }
   }
 }
 
 initWebsite();
+
