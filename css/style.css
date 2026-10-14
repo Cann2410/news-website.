@@ -5,11 +5,21 @@
   padding: 0;
 }
 
+:root {
+  --primary: #b5121b;
+  --primary-dark: #920e16;
+  --background: #f4f5f7;
+  --white: #ffffff;
+  --text: #252525;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+}
+
 body {
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
-  color: #222;
-  background: #f5f6f8;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.65;
+  color: var(--text);
+  background: var(--background);
 }
 
 a {
@@ -17,15 +27,19 @@ a {
   text-decoration: none;
 }
 
+a:hover {
+  color: var(--primary);
+}
+
 .container {
-  width: 90%;
-  max-width: 1200px;
+  width: min(1200px, 92%);
   margin: 0 auto;
 }
 
+/* HEADER */
 .site-header {
-  background: #b5121b;
-  color: white;
+  background: var(--primary);
+  color: var(--white);
   padding: 18px 0;
 }
 
@@ -33,61 +47,125 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 16px;
+  gap: 28px;
 }
 
 .logo {
-  font-size: 28px;
-  font-weight: bold;
+  font-size: 30px;
+  font-weight: 800;
+  color: white;
+  white-space: nowrap;
+}
+
+.logo:hover {
+  color: white;
+}
+
+.site-header nav {
+  display: flex;
+  align-items: center;
 }
 
 #categoryMenu {
   display: flex;
+  align-items: center;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 6px;
   list-style: none;
 }
 
-#categoryMenu a {
-  font-weight: bold;
+#categoryMenu > li {
+  position: relative;
 }
 
-#categoryMenu a:hover {
-  text-decoration: underline;
+#categoryMenu > li > a {
+  display: block;
+  color: white;
+  padding: 10px 13px;
+  border-radius: 5px;
+  font-weight: 700;
 }
 
-main {
-  padding-top: 28px;
-  padding-bottom: 40px;
+#categoryMenu > li > a:hover {
+  background: var(--primary-dark);
+  color: white;
+}
+
+/* MENU CON */
+#categoryMenu .submenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 20;
+  min-width: 220px;
+  list-style: none;
+  background: white;
+  box-shadow: 0 5px 18px #00000020;
+  border-radius: 6px;
+  padding: 8px 0;
+}
+
+#categoryMenu li:hover > .submenu {
+  display: block;
+}
+
+#categoryMenu .submenu a {
+  display: block;
+  color: var(--text);
+  padding: 9px 15px;
+  white-space: nowrap;
+}
+
+#categoryMenu .submenu a:hover {
+  background: #fcebed;
+  color: var(--primary);
+}
+
+/* MAIN */
+main.container {
+  padding-top: 30px;
+  padding-bottom: 45px;
 }
 
 .welcome {
-  padding: 28px;
-  margin-bottom: 28px;
   background: white;
-  border-radius: 8px;
-  border-left: 5px solid #b5121b;
+  padding: 32px 36px;
+  margin-bottom: 32px;
+  border-radius: 10px;
+  border-left: 5px solid var(--primary);
+  box-shadow: 0 3px 12px #00000008;
 }
 
 .welcome h1 {
-  margin-bottom: 8px;
+  font-size: clamp(26px, 3vw, 36px);
+  line-height: 1.3;
+  margin-bottom: 10px;
+}
+
+.welcome p {
+  color: #555;
+  font-size: 17px;
 }
 
 section {
-  margin-bottom: 32px;
+  margin-bottom: 36px;
 }
 
 section h2 {
-  margin-bottom: 18px;
-  padding-left: 12px;
-  border-left: 4px solid #b5121b;
+  font-size: 25px;
+  line-height: 1.4;
+  margin-bottom: 20px;
+  padding-left: 13px;
+  border-left: 5px solid var(--primary);
 }
 
+/* DANH SACH BAI VIET */
 .featured-posts {
   display: grid;
   grid-template-columns: 2fr 1fr;
-  gap: 18px;
+  gap: 20px;
+  align-items: stretch;
 }
 
 .post-list {
@@ -96,25 +174,109 @@ section h2 {
   gap: 16px;
 }
 
+.post-card {
+  min-width: 0;
+  padding: 22px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  box-shadow: 0 3px 10px #00000006;
+  overflow-wrap: anywhere;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.post-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 7px 20px #00000012;
+}
+
+.post-card h3 {
+  font-size: 20px;
+  line-height: 1.45;
+  margin-bottom: 10px;
+}
+
+.post-card h3 a:hover {
+  color: var(--primary);
+}
+
+.post-card p {
+  margin-top: 7px;
+}
+
+.post-date,
+.post-category {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.post-excerpt {
+  margin-top: 12px !important;
+}
+
+/* TRANG CHI TIET */
+.article-detail {
+  background: white;
+  padding: clamp(22px, 5vw, 48px);
+  border-radius: 10px;
+  box-shadow: 0 3px 15px #00000008;
+}
+
+.article-detail h1 {
+  font-size: clamp(27px, 4vw, 38px);
+  line-height: 1.35;
+  margin: 15px 0;
+}
+
+.article-detail .article-content {
+  margin-top: 28px;
+  font-size: 18px;
+  line-height: 1.9;
+  white-space: pre-line;
+}
+
+/* FOOTER */
 .site-footer {
-  background: #222;
+  background: #242424;
   color: white;
-  padding: 28px 0;
+  padding: 30px 0;
   text-align: center;
 }
 
-.site-footer p {
-  margin-top: 8px;
+.site-footer h2 {
+  margin-bottom: 8px;
 }
 
+.site-footer p {
+  margin-top: 6px;
+  color: #e0e0e0;
+}
+
+/* TABLET VA DIEN THOAI */
 @media (max-width: 768px) {
   .site-header .container {
     flex-direction: column;
     align-items: flex-start;
+    gap: 12px;
   }
 
   #categoryMenu {
-    gap: 12px;
+    gap: 3px;
+  }
+
+  #categoryMenu > li > a {
+    padding: 8px 9px;
+  }
+
+  #categoryMenu .submenu {
+    position: static;
+    box-shadow: none;
+    border-radius: 0;
+    padding-left: 10px;
+  }
+
+  #categoryMenu li:hover > .submenu {
+    display: block;
   }
 
   .featured-posts {
@@ -122,6 +284,41 @@ section h2 {
   }
 
   .welcome {
+    padding: 24px;
+  }
+
+  section h2 {
+    font-size: 22px;
+  }
+
+  .post-card {
+    padding: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    width: 94%;
+  }
+
+  .logo {
+    font-size: 26px;
+  }
+
+  #categoryMenu {
+    gap: 2px;
+  }
+
+  #categoryMenu > li > a {
+    padding: 7px;
+    font-size: 14px;
+  }
+
+  .welcome {
     padding: 20px;
+  }
+
+  .post-card h3 {
+    font-size: 18px;
   }
 }
