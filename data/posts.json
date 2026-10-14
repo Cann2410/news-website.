@@ -1,4 +1,41 @@
 
 {
-  "posts": []
+  "posts": [
+    {
+      "id": "demo-001",
+      "title": "Bài viết minh họa số 1",
+      "slug": "bai-viet-minh-hoa-1",
+      "excerpt": "Đây là dữ liệu minh họa để kiểm tra cách website hiển thị bài viết.",
+      "content": "Nội dung minh họa. Cần thay bằng nội dung bài báo thực tế được thu thập từ nguồn tin.",
+      "author": "Dữ liệu minh họa",
+      "category": "Thế giới",
+      "publishedAt": "2026-10-14",
+      "source": "Dữ liệu minh họa",
+      "url": "#"
+    },
+    {
+      "id": "demo-002",
+      "title": "Bài viết minh họa số 2",
+      "slug": "bai-viet-minh-hoa-2",
+      "excerpt": "Bài viết thứ hai dùng để kiểm tra danh sách tin trên trang chủ.",
+      "content": "Nội dung minh họa. Cần thay bằng nội dung bài báo thực tế được thu thập từ nguồn tin.",
+      "author": "Dữ liệu minh họa",
+      "category": "Thế giới",
+      "publishedAt": "2026-10-13",
+      "source": "Dữ liệu minh họa",
+      "url": "#"
+    },
+    {
+      "id": "demo-003",
+      "title": "Bài viết minh họa số 3",
+      "slug": "bai-viet-minh-hoa-3",
+      "excerpt": "Bài viết thứ ba dùng để kiểm tra khu vực ba tin mới nhất.",
+      "content": "Nội dung minh họa. Cần thay bằng nội dung bài báo thực tế được thu thập từ nguồn tin.",
+      "author": "Dữ liệu minh họa",
+      "category": "Thế giới",
+      "publishedAt": "2026-10-12",
+      "source": "Dữ liệu minh họa",
+      "url": "#"
+    }
+  ]
 }
